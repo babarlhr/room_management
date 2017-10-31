@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem name="Room Management" id="your_root_menu_id"  sequence="190"/>
+        <menuitem id="room_management" action="tenant_form_action" name="Room Management" parent="your_root_menu_id" sequence="2"/>
+        <menuitem id="submenu_tenant" action="tenant_form_action" name="Tenants" parent="room_management"/>
+        <menuitem id="submenu_room" action="room_form_action" name="Rooms" parent="room_management"/>
+        <menuitem id="submenu_payment" action="payment_form_action" name="Payments" parent="room_management"/>
+
+        <record id="tenant_view_form" model="ir.ui.view">
+            <field name="name">tenant.view.form</field>
+            <field name="model">tenant.tenant</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+
+                <form string="Tenant">
+                <sheet>
+                    <group>
+                        <group>
+                <field name="tenant_name"/>
+                <field name="room_id"/>
+                        </group>
+                        <group>
+                <field name="contact_number"/>
+                <field name="date_started"/>
+                        </group>
+                    </group>
+                <separator string="Payment History"/>
+                <field name="payment_history"/>
+
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tenant_view_tree" model="ir.ui.view">
+        <field name="name">tenant.view.tree</field>
+        <field name="model">tenant.tenant</field>
+            <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+            <field name="tenant_name"/>
+            <field name="room_id"/>
+            <field name="contact_number"/>
+            </tree>
+        </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="tenant_form_action">
+            <field name="name">Tenant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tenant.tenant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="room_view_form" model="ir.ui.view">
+        <field name="name">room.view.form</field>
+        <field name="model">room.room</field>
+            <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                <field name="name"/>
+                <field name="amount_rental"/>
+                <field name="capacity"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+        </record>
+
+        <record id="list_view_tree" model="ir.ui.view">
+            <field name="name">room.view.tree</field>
+            <field name="model">room.room</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+                <field name="name"/>
+                <field name="amount_rental"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="room_form_action">
+            <field name="name">Room</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">room.room</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="paymemt_view_form" model="ir.ui.view">
+        <field name="name">payment.view.form</field>
+        <field name="model">payment.payment</field>
+            <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                    <field name="tenant_name"/>
+                    <field name="room"/>
+                    <field name="payment"/>
+                    <field name="payment_sched"/>
+                    <field name="paid"/>
+                </group>
+                </sheet>
+
+            </form>
+
+        </field>
+        </record>
+
+
+        <record id="paymemt_view_tree" model="ir.ui.view">
+            <field name="name">payment.view.tree</field>
+            <field name="type">tree</field>
+            <field name="model">payment.payment</field>
+            <field name="arch" type="xml">
+                <tree>
+                <field name="tenant_name"/>
+                <field name="room"/>
+                <field name="payment"/>
+                <field name="paid"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="paymemt_view_tree" model="ir.ui.view">
+            <field name="name">payment.view.calendar</field>
+            <field name="type">calendar</field>
+            <field name="model">payment.payment</field>
+            <field name="arch" type="xml">
+                <calendar string="Payment Schedule" date_start="payment_sched">
+                    <field name="tenant_name"/>
+                    <field name="room"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="payment_form_action">
+            <field name="name">Payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payment.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+    </data>
+</openerp>
